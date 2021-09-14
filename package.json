@@ -6,11 +6,13 @@
   "engines": {
     "node": ">= 12.13.0"
   },
+  "repository": "MNISHoward/style-i18n-loader",
   "homepage": "https://github.com/MNISHoward/style-i18n-loader",
   "bugs": "https://github.com/MNISHoward/style-i18n-loader/issues",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "build": "rollup --config rollup.config.js"
+    "build": "rollup --config rollup.config.js",
+    "release": "standard-version"
   },
   "files": [
     "dist"
