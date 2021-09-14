@@ -5,7 +5,7 @@ import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
 export default {
-  input: 'src/index.js',
+  input: 'src/cjs.js',
   output: {
     file: 'dist/index.js',
     format: 'cjs'

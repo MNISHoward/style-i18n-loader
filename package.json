@@ -30,6 +30,10 @@
     "gonzales-pe": ">= 4.3.0",
     "loader-utils": ">= 2.0.0"
   },
+  "dependencies": {
+    "loader-utils": "^2.0.0",
+    "gonzales-pe": "^4.3.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
@@ -41,9 +45,7 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
-    "gonzales-pe": "^4.3.0",
     "husky": "^7.0.2",
-    "loader-utils": "^2.0.0",
     "prettier": "^2.4.0",
     "rollup": "^2.56.3",
     "rollup-plugin-commonjs": "^10.1.0",
