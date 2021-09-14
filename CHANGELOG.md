@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/MNISHoward/style-i18n-loader/compare/v1.1.2...v1.1.3) (2021-09-14)
+
+
+### Bug Fixes
+
+* **function:** add new entry for commonjs and add dependencies ([ba17a36](https://github.com/MNISHoward/style-i18n-loader/commit/ba17a36217b9ab53aa5a5d46ef266f7e6a53b7a5))
+
 ### [1.1.2](https://github.com/MNISHoward/style-i18n-loader/compare/v1.1.1...v1.1.2) (2021-09-14)
 
 
