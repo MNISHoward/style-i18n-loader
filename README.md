@@ -72,7 +72,7 @@ module.exports = {
           // Compiles Sass to CSS
           "sass-loader",
           // Complie @i18n to special code
-          "i18n-style-loader",
+          require.resolve('style-i18n-loader'),
         ],
       },
     ],
