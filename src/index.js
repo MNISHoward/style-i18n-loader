@@ -19,8 +19,12 @@ if (exsitJs) {
   }
 }
 
-
-export default (content) => {
+/**
+ *
+ * @this {object}
+ * @param {string} content
+ */
+function loader(content) {
   const options = Object.assign(
     {},
     loaderUtils.getOptions(this),
@@ -68,3 +72,5 @@ export default (content) => {
   const newContent = transfrom(content, paths);
   this.callback(null, newContent, sourceMap);
 }
+
+export default loader;
