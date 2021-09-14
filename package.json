@@ -26,10 +26,6 @@
   ],
   "author": "451006700@qq.com",
   "license": "ISC",
-  "peerDependencies": {
-    "gonzales-pe": ">= 4.3.0",
-    "loader-utils": ">= 2.0.0"
-  },
   "dependencies": {
     "loader-utils": "^2.0.0",
     "gonzales-pe": "^4.3.0"
@@ -49,7 +45,6 @@
     "prettier": "^2.4.0",
     "rollup": "^2.56.3",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
     "standard-version": "^9.3.1"
   }
