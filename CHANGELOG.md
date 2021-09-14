@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/MNISHoward/style-i18n-loader/compare/v1.1.3...v1.1.4) (2021-09-14)
+
+
+### Bug Fixes
+
+* **project:** remove the peerDependency ([e54d687](https://github.com/MNISHoward/style-i18n-loader/commit/e54d6873e9fd431e51905c8615c084e31d51abac))
+
 ### [1.1.3](https://github.com/MNISHoward/style-i18n-loader/compare/v1.1.2...v1.1.3) (2021-09-14)
 
 
