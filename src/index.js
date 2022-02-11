@@ -11,11 +11,11 @@ const exsitJs = fs.existsSync(configJsPath);
 let exsitJson;
 let rootConfig = {};
 if (exsitJs) {
-  rootConfig = require(configJsPath)
+  import(configJsPath).then(config => (rootConfig = config));
 } else {
   exsitJson = fs.existsSync(configJsonPath);
   if (exsitJson) {
-    rootConfig = require(configJsonPath);
+    import(configJsonPath).then(config => (rootConfig = config));
   }
 }
 
