@@ -10,7 +10,7 @@
   "homepage": "https://github.com/MNISHoward/style-i18n-loader",
   "bugs": "https://github.com/MNISHoward/style-i18n-loader/issues",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "jest",
     "build": "rollup --config rollup.config.js",
     "release": "standard-version"
   },
@@ -42,6 +42,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "husky": "^7.0.2",
+    "jest": "^27.3.1",
     "prettier": "^2.4.0",
     "rollup": "^2.56.3",
     "rollup-plugin-commonjs": "^10.1.0",

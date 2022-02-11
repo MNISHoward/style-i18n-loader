@@ -1,4 +1,8 @@
+import transfrom from "../src/transform";
+import config from "../i18n.config";
 
+describe("transfrom", () => {
+  test("generate content successful", () => {
 const content = `
 @import '~@/utils/css/_function';
 @import '~@/utils/css/_define';
@@ -54,14 +58,7 @@ const content = `
   }
 }
 `
-
-const loader = require('../src/index')
-
-const test = (content) => {
-  this.callback = (_, newContent) => {
-    console.log(newContent);
-  }
-  this.addDependency = () => {};
-  loader(content);
-}
-test(content);
+    global.i18nSyntax = config.syntax;
+    expect(transfrom(content, config.paths)).toEqual(expect.stringContaining('at-root'));
+  })
+})
