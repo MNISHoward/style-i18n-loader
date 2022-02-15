@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/MNISHoward/style-i18n-loader/compare/v1.1.4...v1.2.0) (2022-02-15)
+
+
+### Features
+
+* add jest and fix media issue ([4782ed8](https://github.com/MNISHoward/style-i18n-loader/commit/4782ed8b387be3f8940cf627400c5a09b5a1cced))
+* support css ([b1d96d6](https://github.com/MNISHoward/style-i18n-loader/commit/b1d96d6f466553061bab95001eea96a2e36b4821))
+* support less ([2a37ef9](https://github.com/MNISHoward/style-i18n-loader/commit/2a37ef95f229e0c54b7c74f3478a38152c10c709))
+
+
+### Bug Fixes
+
+* fix less error ([bfd590f](https://github.com/MNISHoward/style-i18n-loader/commit/bfd590fdfdf6726dfb401a0661f53d2a3f5e324c))
+
 ### [1.1.4](https://github.com/MNISHoward/style-i18n-loader/compare/v1.1.3...v1.1.4) (2021-09-14)
 
 
