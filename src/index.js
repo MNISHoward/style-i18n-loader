@@ -2,8 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import loaderUtils from 'loader-utils';
-
-import { transfrom } from './utils';
+import transfrom from './transform';
 
 const configJsPath = path.resolve(process.cwd(), 'i18n.config.js');
 const configJsonPath = path.resolve(process.cwd(), 'i18n.config.json');

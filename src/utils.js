@@ -1,16 +1,6 @@
+import gonzales from 'gonzales-pe';
+
 import getImageSelector from './generator';
-
-const gonzales = require('gonzales-pe');
-
-function walkType(parseTree, nodeType, callback) {
-  const parent = parseTree;
-  parseTree.forEach((childNode, index) => {
-    if (childNode.is(nodeType)) {
-      callback(childNode, parent, index);
-    }
-    walkType(childNode, nodeType, callback);
-  })
-}
 
 function walkValue(parseTree, nodeValue, callback) {
   const parent = parseTree;
@@ -31,7 +21,7 @@ function containsValue(parseTree, nodeValue) {
   return contained;
 }
 
-function generateI18nAst(iden, names, space, langConfig) {
+function generateI18nAst(iden, names, space, langConfig, selector) {
   let content = '';
   const keys = Object.keys(langConfig);
   keys.forEach((lang) => {
@@ -41,7 +31,7 @@ function generateI18nAst(iden, names, space, langConfig) {
     const urlString = names.slice(1).reduce((prev, name) =>
       `${prev} url(${path}${isEndsWithSlash ? '' : '/'}${name})`
       , prevString);
-    content += getImageSelector({ lang, iden, space, urlString }, global.i18nSyntax);
+    content += getImageSelector({ lang, iden, space, urlString, selector }, global.i18nSyntax);
   })
   if (content === '') {
     return null;
@@ -49,9 +39,36 @@ function generateI18nAst(iden, names, space, langConfig) {
   return gonzales.parse(content, { syntax: global.i18nSyntax }).content;
 }
 
+function getParent(parseTree, node) {
+  let p = [];
+  parseTree.traverse((n, i, parent) => {
+    if (p.length > 0) return;
+    if (n === node) {
+      p = [parent, i];
+    }
+  })
+  return p;
+}
+
+function getSelector(parseTree, parent) {
+  let selector = [];
+  parseTree.traverseByType('selector', (node, i, p) => {
+    if (selector.length > 0) return;
+    let n = p.get(i + 1);
+    if (n.is('space')) {
+      n = p.get(i + 2);
+    }
+    if (n === parent) {
+      selector = [node, p];
+    }
+  })
+  return selector;
+}
+
 export {
-  walkType,
   walkValue,
   containsValue,
   generateI18nAst,
+  getSelector,
+  getParent
 }
