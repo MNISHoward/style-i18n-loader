@@ -31,7 +31,7 @@ function transfrom(content, paths) {
         if (delimiterNode && delimiterNode.is('declarationDelimiter')) {
           parent.removeChild(index);
         }
-        if (global.i18nSyntax === 'csss') {
+        if (global.i18nSyntax !== 'css') {
           parent.content.splice(index, 0, ...insertContent);
         } else {
           const [p, pi] = getParent(parseTree, pselector);
