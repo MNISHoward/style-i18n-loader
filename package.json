@@ -13,7 +13,7 @@
     "test": "jest",
     "build": "rollup --config rollup.config.js",
     "release": "standard-version",
-    "publish": "git push --follow-tags origin main && npm publish"
+    "publish": "git push --follow-tags origin main"
   },
   "files": [
     "dist"
