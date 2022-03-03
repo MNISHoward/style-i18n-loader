@@ -1,7 +1,7 @@
-import transfrom from "../src/transform";
+import transform from "../src/transform";
 import config from "../i18n.config";
 
-describe("transfrom scss", () => {
+describe("transform i18n scss", () => {
   test("generate content successful", () => {
     const content = `
 @import '~@/utils/css/_function';
@@ -18,9 +18,9 @@ describe("transfrom scss", () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    @i18n background-image: url('rule');
+    @i18n background-image: url('rule.png');
     .pong {
-      @i18n background-image: url('rule2');
+      @i18n background-image: url('rule2.png');
     }
   }
   .pong-alert-mask{
@@ -59,11 +59,11 @@ describe("transfrom scss", () => {
 }
 `
     global.i18nSyntax = 'scss';
-    expect(transfrom(content, config.paths)).toEqual(expect.stringContaining('at-root'));
+    expect(transform(content, config)).toEqual(expect.stringContaining('at-root'));
   })
 })
 
-describe("transfrom less", () => {
+describe("transform i18n less", () => {
   test("generate content successful", () => {
     const content = `
 .wrap {
@@ -181,11 +181,11 @@ describe("transfrom less", () => {
 }
 `
     global.i18nSyntax = 'less';
-    expect(transfrom(content, config.paths)).toEqual(expect.stringContaining('&'));
+    expect(transform(content, config)).toEqual(expect.stringContaining('&'));
   })
 })
 
-describe("transfrom css", () => {
+describe("transform i18n css", () => {
   test("generate content successful", () => {
     const content = `
 .test {
@@ -193,6 +193,6 @@ describe("transfrom css", () => {
 }
 `
     global.i18nSyntax = 'css';
-    expect(transfrom(content, config.paths)).toEqual(expect.stringContaining('html'));
+    expect(transform(content, config)).toEqual(expect.stringContaining('html'));
   })
 })

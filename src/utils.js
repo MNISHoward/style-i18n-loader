@@ -1,6 +1,20 @@
-import gonzales from 'gonzales-pe';
 
-import getImageSelector from './generator';
+
+const opposites = {
+  'margin-left': 'margin-right',
+  'padding-left': 'padding-right',
+  'left': 'right',
+  'border-left': 'border-right'
+}
+
+const rtlCollectionProperties = [
+  'margin',
+  'padding',
+  'border',
+  'inset'
+];
+
+const rtlSingleProperties = [...Object.keys(opposites), ...Object.values(opposites)];
 
 function walkValue(parseTree, nodeValue, callback) {
   const parent = parseTree;
@@ -21,22 +35,15 @@ function containsValue(parseTree, nodeValue) {
   return contained;
 }
 
-function generateI18nAst(iden, names, space, langConfig, selector) {
-  let content = '';
-  const keys = Object.keys(langConfig);
-  keys.forEach((lang) => {
-    const path = langConfig[lang];
-    const isEndsWithSlash = path.endsWith('/');
-    const prevString = `url(${path}${isEndsWithSlash ? '' : '/'}${names[0]})`;
-    const urlString = names.slice(1).reduce((prev, name) =>
-      `${prev} url(${path}${isEndsWithSlash ? '' : '/'}${name})`
-      , prevString);
-    content += getImageSelector({ lang, iden, space, urlString, selector }, global.i18nSyntax);
+function removeChildByNode(parent, node) {
+  let idx = 0;
+  parent.forEach((n, i) => {
+    if (node === n) {
+      idx = i;
+      parent.removeChild(i);
+    }
   })
-  if (content === '') {
-    return null;
-  }
-  return gonzales.parse(content, { syntax: global.i18nSyntax }).content;
+  return idx;
 }
 
 function getParent(parseTree, node) {
@@ -65,10 +72,20 @@ function getSelector(parseTree, parent) {
   return selector;
 }
 
+function getOpposite(key) {
+  if (Object.hasOwnProperty.call(opposites, key)) {
+    return opposites[key];
+  }
+  return Object.keys(opposites).find(k => opposites[k] === key);
+}
+
 export {
   walkValue,
   containsValue,
-  generateI18nAst,
   getSelector,
-  getParent
+  getParent,
+  rtlCollectionProperties,
+  rtlSingleProperties,
+  getOpposite,
+  removeChildByNode
 }
