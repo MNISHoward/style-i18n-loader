@@ -1,9 +1,21 @@
-function getScssImageSelector(lang, iden, space, urlString) {
+function getScssLangCommonSelector(lang, iden, space, value) {
   return `
 ${space}@at-root #{selector-nest('html[lang=${lang}]', &)} {
-${space}  ${iden}: ${urlString};
+${space}  ${iden}: ${value};
 ${space}}
 `;
 }
 
-export default getScssImageSelector;
+function getScssRtlSingleSelector(lang, iden, opposite, space, value) {
+  return `
+${space}@at-root #{selector-nest('html[lang=${lang}]', &)} {
+${space}  ${iden}: ${value} !important;
+${space}  ${opposite}: unset;
+${space}}
+`
+}
+
+export {
+  getScssLangCommonSelector,
+  getScssRtlSingleSelector
+}

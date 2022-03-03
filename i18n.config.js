@@ -7,5 +7,6 @@ module.exports = {
     'en': '~@/assets/lang/en',
     'ar': '~@/assets/lang/ar',
   },
+  rtl: ['ar'],
   syntax: 'scss'
 }

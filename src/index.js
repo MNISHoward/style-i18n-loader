@@ -66,9 +66,9 @@ function loader(content) {
   } else if (exsitJson) {
     this.addDependency(configJsonPath)
   }
-  const { paths, sourceMap, syntax } = options;
+  const { sourceMap, syntax } = options;
   global.i18nSyntax = syntax;
-  const newContent = transfrom(content, paths);
+  const newContent = transfrom(content, options);
   this.callback(null, newContent, sourceMap);
 }
 

@@ -1,4 +1,4 @@
-function getCssImageSelector(lang, iden, space, urlString, selector) {
+function getCssLangCommonSelector(lang, iden, space, urlString, selector) {
   return `
 html[lang='${lang}'] ${selector} {
   ${iden}: ${urlString};
@@ -6,4 +6,4 @@ html[lang='${lang}'] ${selector} {
 `;
 }
 
-export default getCssImageSelector;
+export default getCssLangCommonSelector;
