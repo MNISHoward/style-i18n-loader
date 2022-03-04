@@ -6,4 +6,13 @@ html[lang='${lang}'] ${selector} {
 `;
 }
 
-export default getCssLangCommonSelector;
+function getCssRtlSingleSelector(lang, iden, opposite, space, value, selector) {
+  return `
+html[lang='${lang}'] ${selector} {
+  ${iden}: unset;
+  ${opposite}: ${value} !important;
+}
+`
+}
+
+export { getCssLangCommonSelector, getCssRtlSingleSelector };

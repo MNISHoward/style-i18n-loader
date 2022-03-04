@@ -59,7 +59,12 @@ describe("transform i18n scss", () => {
 }
 `
     global.i18nSyntax = 'scss';
-    expect(transform(content, config)).toEqual(expect.stringContaining('at-root'));
+    const { paths } = config;
+    const res = transform(content, config);
+    Object.values(paths).forEach(path => {
+      expect(res).toContain(path);
+    })
+    expect(res).toContain('@at-root');
   })
 })
 
@@ -181,7 +186,11 @@ describe("transform i18n less", () => {
 }
 `
     global.i18nSyntax = 'less';
-    expect(transform(content, config)).toEqual(expect.stringContaining('&'));
+    const { paths } = config;
+    const res = transform(content, config);
+    Object.values(paths).forEach(path => {
+      expect(res).toContain(path);
+    })
   })
 })
 
@@ -193,6 +202,11 @@ describe("transform i18n css", () => {
 }
 `
     global.i18nSyntax = 'css';
-    expect(transform(content, config)).toEqual(expect.stringContaining('html'));
+    const { paths } = config;
+    const res = transform(content, config);
+    Object.values(paths).forEach(path => {
+      expect(res).toContain(path);
+    })
+    expect(res).toContain('html');
   })
 })
