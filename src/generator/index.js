@@ -1,9 +1,9 @@
-import gonzales from 'gonzales-pe';
+import { getOpposite, parseContent } from '../utils';
 
 import { getScssLangCommonSelector, getScssRtlSingleSelector } from './scss-generator';
-import getLessLangCommonSelector from './less-generator';
-import getCssLangCommonSelector from './css-generator';
-import { getOpposite } from '../utils';
+import { getLessLangCommonSelector, getLessRtlSingleSelector } from './less-generator';
+import { getCssLangCommonSelector, getCssRtlSingleSelector } from './css-generator';
+
 
 function getImageSelector({ lang, iden, space, urlString, selector }, type) {
   switch (type) {
@@ -18,18 +18,26 @@ function getImageSelector({ lang, iden, space, urlString, selector }, type) {
   }
 }
 
-function getRtlCollectionSelector({ lang, iden, space, dimensionValues }, type) {
+function getRtlCollectionSelector({ lang, iden, space, dimensionValues, selector }, type) {
   switch (type) {
     case 'scss':
       return getScssLangCommonSelector(lang, iden, space, dimensionValues);
+    case 'less':
+      return getLessLangCommonSelector(lang, iden, space, dimensionValues);
+    case 'css':
+      return getCssLangCommonSelector(lang, iden, space, dimensionValues, selector)
     default:
       return null;
   }
 }
-function getRtlSingleSelector({ lang, iden, opposite, space, dimensionValue }, type) {
+function getRtlSingleSelector({ lang, iden, opposite, space, dimensionValue, selector }, type) {
   switch (type) {
     case 'scss':
       return getScssRtlSingleSelector(lang, iden, opposite, space, dimensionValue);
+    case 'less':
+      return getLessRtlSingleSelector(lang, iden, opposite, space, dimensionValue);
+    case 'css':
+      return getCssRtlSingleSelector(lang, iden, opposite, space, dimensionValue, selector)
     default:
       return null;
   }
@@ -50,7 +58,7 @@ function generateI18nAst(iden, names, space, langConfig, selector) {
   if (content === '') {
     return null;
   }
-  return gonzales.parse(content, { syntax: global.i18nSyntax }).content;
+  return parseContent(content);
 }
 
 
@@ -73,15 +81,20 @@ function getDimensions(node) {
   return dimensions;
 }
 
-function genernateRtlCollectionAst(iden, node, space, rtl) {
+function genernateRtlCollectionAst(iden, node, space, rtl, selector) {
   const dimensions = getDimensions(node);
   // generate current content without at-rule
   const originalDimensionValues = dimensions.reduce((prev, curr, index) =>
     prev + curr.number + curr.unit + (index !== dimensions.length - 1 ? ' ' : '')
     , '');
-  let content = `
+  const originContent = global.i18nSyntax !== 'css' ? `
 ${space}${iden}: ${originalDimensionValues};
+` : `
+${selector} {
+${space}${iden}: ${originalDimensionValues};
+}
 `;
+  let newContent = '';
   const { length } = dimensions;
   if (length === 4 && (dimensions[1].number !== dimensions[3].number || dimensions[1].unit !== dimensions[3].unit)) {
     // swap left and right;
@@ -90,24 +103,34 @@ ${space}${iden}: ${originalDimensionValues};
       prev + curr.number + curr.unit + (index !== dimensions.length - 1 ? ' ' : '')
       , '');
 
-    content += rtl.reduce((prev, lang) =>
-      prev + getRtlCollectionSelector({ lang, iden, space, dimensionValues }, global.i18nSyntax)
+    newContent = rtl.reduce((prev, lang) =>
+      prev + getRtlCollectionSelector({ lang, iden, space, dimensionValues, selector }, global.i18nSyntax)
       , '');
   }
+  if (global.i18nSyntax === 'css') {
+    return [parseContent(newContent), parseContent(originContent)];
+  }
   // less than 4 dimensions or second value equal fourth value, do nothing.
-  return gonzales.parse(content, { syntax: global.i18nSyntax }).content;
+  return [parseContent(originContent + newContent)];
 }
 
-function genernateRtlSingleAst(iden, node, space, rtl) {
+function genernateRtlSingleAst(iden, node, space, rtl, selector) {
   const [dimensions] = getDimensions(node);
-  let content = `
+  const originContent = global.i18nSyntax !== 'css' ? `
 ${space}${iden}: ${dimensions.number}${dimensions.unit};
+` : `
+${selector} {
+${space}${iden}: ${dimensions.number}${dimensions.unit};
+}
 `;
   const opposite = getOpposite(iden);
-  content += rtl.reduce((prev, lang) =>
-    prev + getRtlSingleSelector({ lang, iden, opposite, space, dimensionValue: dimensions.number + dimensions.unit }, global.i18nSyntax)
+  const newContent = rtl.reduce((prev, lang) =>
+    prev + getRtlSingleSelector({ lang, iden, opposite, space, dimensionValue: dimensions.number + dimensions.unit, selector }, global.i18nSyntax)
     , '');
-  return gonzales.parse(content, { syntax: global.i18nSyntax }).content;
+  if (global.i18nSyntax === 'css') {
+    return [parseContent(newContent), parseContent(originContent)];
+  }
+  return [parseContent(originContent + newContent)];
 }
 
 export {

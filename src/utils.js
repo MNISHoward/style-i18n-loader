@@ -1,3 +1,4 @@
+import gonzales from "gonzales-pe";
 
 
 const opposites = {
@@ -79,6 +80,10 @@ function getOpposite(key) {
   return Object.keys(opposites).find(k => opposites[k] === key);
 }
 
+function parseContent(content) {
+  return gonzales.parse(content, { syntax: global.i18nSyntax }).content;
+}
+
 export {
   walkValue,
   containsValue,
@@ -87,5 +92,6 @@ export {
   rtlCollectionProperties,
   rtlSingleProperties,
   getOpposite,
-  removeChildByNode
+  removeChildByNode,
+  parseContent
 }
