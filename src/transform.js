@@ -1,6 +1,6 @@
 import gonzales from "gonzales-pe";
 
-import { generateI18nAst, genernateRtlCollectionAst, genernateRtlSingleAst } from './generator';
+import { generateI18nAst, generateLangAst, genernateRtlCollectionAst, genernateRtlSingleAst } from './generator';
 
 import {
   containsValue,
@@ -19,8 +19,13 @@ function removeCustomRule(parent, customNode) {
   }
 }
 
-function insertToContent(parent, index, parseTree, pselector, insertContent, type) {
-  if (type !== 'css') {
+function getSpace(parent, index) {
+  const beforeSpaceNode = parent.get(index - 1);
+  return beforeSpaceNode.content.replace(/[\n]/, "");
+}
+
+function insertToContent(parent, index, parseTree, pselector, insertContent) {
+  if (global.i18nSyntax !== 'css') {
     parent.content.splice(index, 0, ...insertContent);
   } else {
     const [p, pi] = getParent(parseTree, pselector);
@@ -30,15 +35,14 @@ function insertToContent(parent, index, parseTree, pselector, insertContent, typ
 }
 
 function transfromI18n(parseTree, paths, node, index, parent, cbList) {
-  const beforeSpaceNode = parent.get(index - 1);
-  const space = beforeSpaceNode.content.replace(/[\n]/, "");
+  const space = getSpace(parent, index);
   let ident = null;
   let names = null;
   node.forEach((no) => {
-    if (no.type === 'ident') {
+    if (no.is('ident')) {
       ident = no.content
     }
-    if (no.type === 'uri') {
+    if (no.is('uri')) {
       names = no.content.map((n) =>
         n.content.replace(/("|')/g, "")
       )
@@ -49,17 +53,16 @@ function transfromI18n(parseTree, paths, node, index, parent, cbList) {
     const [selector, pselector] = getSelector(parseTree, parent);
     const insertContent = generateI18nAst(ident, names, space, paths, selector);
     removeCustomRule(parent, node);
-    insertToContent(parent, index, parseTree, pselector, insertContent, global.i18nSyntax);
+    insertToContent(parent, index, parseTree, pselector, insertContent);
   }
   cbList.push(cb);
 }
 
 function transformRtl(parseTree, rtl, node, index, parent, cbList) {
-  const beforeSpaceNode = parent.get(index - 1);
-  const space = beforeSpaceNode.content.replace(/[\n]/, "");
+  const space = getSpace(parent, index);
   let ident = null;
   node.forEach((no) => {
-    if (no.type === 'ident') {
+    if (no.is('ident')) {
       ident = no.content
     }
   })
@@ -73,14 +76,36 @@ function transformRtl(parseTree, rtl, node, index, parent, cbList) {
       const [insertContent, cssOrigin] = isCollection ?
         genernateRtlCollectionAst(ident, node, space, rtl, selector) :
         genernateRtlSingleAst(ident, node, space, rtl, selector);
-      insertToContent(parent, index, parseTree, pselector, insertContent, global.i18nSyntax);
+      insertToContent(parent, index, parseTree, pselector, insertContent);
       if (global.i18nSyntax === 'css') {
-        insertToContent(parent, index, parseTree, pselector, cssOrigin, global.i18nSyntax);
+        insertToContent(parent, index, parseTree, pselector, cssOrigin);
       }
     } else {
       throw new Error(`the @rtl rule only support {${[...rtlCollectionProperties, ...rtlSingleProperties].join(',')}} now`)
     }
 
+  }
+  cbList.push(cb);
+}
+
+function transformLang(parseTree, node, index, parent, cbList) {
+  const space = getSpace(parent, index);
+  let lang = null;
+  let block = null;
+  node.forEach(no => {
+    if (no.is('parentheses')) {
+      lang = no.content[0].content;
+    }
+    if (no.is('block')) {
+      block = no;
+    }
+  })
+  if (lang == null || block == null) return;
+  const cb = () => {
+    removeCustomRule(parent, node);
+    const [selector, pselector] = getSelector(parseTree, parent);
+    const insertContent = generateLangAst(lang, block, space, selector);
+    insertToContent(parent, index, parseTree, pselector, insertContent)
   }
   cbList.push(cb);
 }
@@ -94,6 +119,9 @@ function transform(content, config) {
     }
     if (containsValue(node, 'rtl')) {
       transformRtl(parseTree, config.rtl, node, index, parent, cbList);
+    }
+    if (containsValue(node, 'lang')) {
+      transformLang(parseTree, node, index, parent, cbList)
     }
   })
   cbList.forEach((cb) => cb());

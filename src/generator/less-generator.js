@@ -15,7 +15,14 @@ ${space}}
 `
 }
 
+function getLessLangSelector(lang, block, space) {
+  return `
+${space}html[lang='${lang}'] & ${block}
+`
+}
+
 export {
   getLessLangCommonSelector,
-  getLessRtlSingleSelector
+  getLessRtlSingleSelector,
+  getLessLangSelector
 };

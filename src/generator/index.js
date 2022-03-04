@@ -1,8 +1,8 @@
 import { getOpposite, parseContent } from '../utils';
 
-import { getScssLangCommonSelector, getScssRtlSingleSelector } from './scss-generator';
-import { getLessLangCommonSelector, getLessRtlSingleSelector } from './less-generator';
-import { getCssLangCommonSelector, getCssRtlSingleSelector } from './css-generator';
+import { getScssLangCommonSelector, getScssLangSelector, getScssRtlSingleSelector } from './scss-generator';
+import { getLessLangCommonSelector, getLessLangSelector, getLessRtlSingleSelector } from './less-generator';
+import { getCssLangCommonSelector, getCssLangSelector, getCssRtlSingleSelector } from './css-generator';
 
 
 function getImageSelector({ lang, iden, space, urlString, selector }, type) {
@@ -38,6 +38,18 @@ function getRtlSingleSelector({ lang, iden, opposite, space, dimensionValue, sel
       return getLessRtlSingleSelector(lang, iden, opposite, space, dimensionValue);
     case 'css':
       return getCssRtlSingleSelector(lang, iden, opposite, space, dimensionValue, selector)
+    default:
+      return null;
+  }
+}
+function getLangSelector({ lang, block, space, selector }, type) {
+  switch (type) {
+    case 'scss':
+      return getScssLangSelector(lang, block, space);
+    case 'less':
+      return getLessLangSelector(lang, block, space);
+    case 'css':
+      return getCssLangSelector(lang, block, selector);
     default:
       return null;
   }
@@ -133,11 +145,17 @@ ${space}${iden}: ${dimensions.number}${dimensions.unit};
   return [parseContent(originContent + newContent)];
 }
 
+function generateLangAst(lang, block, space, selector) {
+  const newContent = getLangSelector({ lang, block, space, selector }, global.i18nSyntax);
+  return parseContent(newContent);
+}
+
 export {
   getImageSelector,
   getRtlCollectionSelector,
   generateI18nAst,
   genernateRtlCollectionAst,
   genernateRtlSingleAst,
-  getRtlSingleSelector
+  getRtlSingleSelector,
+  generateLangAst
 }

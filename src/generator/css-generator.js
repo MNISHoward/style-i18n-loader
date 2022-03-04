@@ -15,4 +15,10 @@ html[lang='${lang}'] ${selector} {
 `
 }
 
-export { getCssLangCommonSelector, getCssRtlSingleSelector };
+function getCssLangSelector(lang, block, selector) {
+  return `
+html[lang='${lang}'] ${selector} ${block}
+`
+}
+
+export { getCssLangCommonSelector, getCssRtlSingleSelector, getCssLangSelector };

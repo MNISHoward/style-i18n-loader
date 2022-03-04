@@ -15,7 +15,14 @@ ${space}}
 `
 }
 
+function getScssLangSelector(lang, block, space) {
+  return `
+${space}@at-root #{selector-nest('html[lang=${lang}]', &)} ${block}
+`
+}
+
 export {
   getScssLangCommonSelector,
-  getScssRtlSingleSelector
+  getScssRtlSingleSelector,
+  getScssLangSelector
 }
