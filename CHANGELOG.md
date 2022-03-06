@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/MNISHoward/style-i18n-loader/compare/v1.2.1...v1.3.0) (2022-03-06)
+
+
+### Features
+
+* add lang rule ([8baf33b](https://github.com/MNISHoward/style-i18n-loader/commit/8baf33b47045d681ccf905f78443f9c9b02f5404))
+* add rtl rule for ar area ([6ae6a9a](https://github.com/MNISHoward/style-i18n-loader/commit/6ae6a9afde0bbb2c4d333673c401f2bf4b32f273))
+* the rtl rule supports less and css ([931ffa8](https://github.com/MNISHoward/style-i18n-loader/commit/931ffa86ad5fbfa1c541f38d830d10877454b895))
+
 ### [1.2.1](https://github.com/MNISHoward/style-i18n-loader/compare/v1.2.0...v1.2.1) (2022-02-15)
 
 
