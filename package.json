@@ -12,7 +12,7 @@
   "scripts": {
     "test": "jest",
     "build": "rollup --config rollup.config.js",
-    "release": "standard-version",
+    "release": "npm run build && standard-version",
     "publish": "git push --follow-tags origin main"
   },
   "files": [
