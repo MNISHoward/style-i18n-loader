@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/MNISHoward/style-i18n-loader/compare/v1.1.4...v1.4.0) (2022-03-11)
+
+
+### Features
+
+* add jest and fix media issue ([e0bb3c3](https://github.com/MNISHoward/style-i18n-loader/commit/e0bb3c3ab1d6fa01ebfd2c1ea064167c59805f9d))
+* add lang rule ([52217a7](https://github.com/MNISHoward/style-i18n-loader/commit/52217a78abdf4bde66bc39fa0abc9ba786c3a90f))
+* add rtl rule for ar area ([219f7dc](https://github.com/MNISHoward/style-i18n-loader/commit/219f7dc3c7acd61b82cde9e4b968cf0fd7ecd4e3))
+* support css ([202402f](https://github.com/MNISHoward/style-i18n-loader/commit/202402fd77851e620a38c3eb21ee54ce547db94f))
+* support less ([068e3d9](https://github.com/MNISHoward/style-i18n-loader/commit/068e3d9475f0dcc5498ae81816c9166ca055e862))
+* the rtl rule supports less and css ([aa83f5a](https://github.com/MNISHoward/style-i18n-loader/commit/aa83f5a6c72c74b22c8728619c1fca80f1c32e7a))
+
+
+### Bug Fixes
+
+* condition error ([9bba975](https://github.com/MNISHoward/style-i18n-loader/commit/9bba97500bcbb167bf07acf8cfa2977ecf4ad785))
+* fix less error ([ee71ab5](https://github.com/MNISHoward/style-i18n-loader/commit/ee71ab58d5b1a11d1f5a541436fdf3c2530f9bb6))
+* set 0 without px in single property ([728b613](https://github.com/MNISHoward/style-i18n-loader/commit/728b613c18ca3070f935a0e48cb3fffcf2edbd3c))
+
 ### [1.3.1](https://github.com/MNISHoward/style-i18n-loader/compare/v1.3.0...v1.3.1) (2022-03-07)
 
 ## [1.3.0](https://github.com/MNISHoward/style-i18n-loader/compare/v1.2.1...v1.3.0) (2022-03-06)
