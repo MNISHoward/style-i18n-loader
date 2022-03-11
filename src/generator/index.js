@@ -89,6 +89,12 @@ function getDimensions(node) {
       })
       dimensions.push(dimension);
     }
+    if (n.type === 'number') {
+      dimensions.push({
+        number: n.content,
+        unit: ''
+      })
+    }
   })
   return dimensions;
 }

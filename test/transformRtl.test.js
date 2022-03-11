@@ -8,6 +8,10 @@ describe("transform rtl scss", () => {
   margin: 10px 2px 5px 1px;
 }
 
+.tes1 {
+  @rtl margin: 10px 0 5px 1px;
+}
+
 .test {
   @rtl margin: 10px 5rem 10px 6px;
 }
@@ -28,6 +32,7 @@ describe("transform rtl scss", () => {
     const res = transform(content, config);
     expect(res).toContain('@at-root');
     expect(res).toContain('margin: 10px 6px 10px 5rem;');
+    expect(res).toContain('margin: 10px 1px 5px 0');
     expect(res).toContain('padding: 10px 6px 10px 5px;');
     expect(res).toContain('inset: 10px 6px 10px 5px;')
     expect(res).not.toContain('@rtl margin: 10px 5px')
@@ -52,6 +57,10 @@ describe("transform rtl scss", () => {
   @rtl right: 13px;
 }
 
+.left1 {
+  @rtl left: 0;
+}
+
 .border {
   @rtl border-left: 12px;
   @rtl border-right: 13px;
@@ -70,6 +79,7 @@ describe("transform rtl scss", () => {
     expect(res).toContain('padding-right: 12px !important');
     expect(res).toContain('left: unset');
     expect(res).toContain('right: 12px !important');
+    expect(res).toContain('right: 0 !important');
     expect(res).toContain('border-left: unset');
     expect(res).toContain('border-right: 12px !important');
   })
@@ -83,6 +93,10 @@ describe("transform rtl less", () => {
   margin: 10px 2px 5px 1px;
 }
 
+.tes1 {
+  @rtl margin: 10px 0 5px 1px;
+}
+
 .test {
   @rtl margin: 10px 5rem 10px 6px;
 }
@@ -103,6 +117,7 @@ describe("transform rtl less", () => {
     const res = transform(content, config);
     expect(res).toContain('&');
     expect(res).toContain('margin: 10px 6px 10px 5rem;');
+    expect(res).toContain('margin: 10px 1px 5px 0');
     expect(res).toContain('padding: 10px 6px 10px 5px;');
     expect(res).toContain('inset: 10px 6px 10px 5px;')
     expect(res).not.toContain('@rtl margin: 10px 5px')
@@ -127,6 +142,10 @@ describe("transform rtl less", () => {
   @rtl right: 13px;
 }
 
+.left1 {
+  @rtl left: 0;
+}
+
 .border {
   @rtl border-left: 12px;
   @rtl border-right: 13px;
@@ -145,6 +164,7 @@ describe("transform rtl less", () => {
     expect(res).toContain('padding-right: 12px !important');
     expect(res).toContain('left: unset');
     expect(res).toContain('right: 12px !important');
+    expect(res).toContain('right: 0 !important');
     expect(res).toContain('border-left: unset');
     expect(res).toContain('border-right: 12px !important');
   })
@@ -157,6 +177,10 @@ describe("transform rtl css", () => {
   margin: 10px 2px 5px 1px;
 }
 
+.tes1 {
+  @rtl margin: 10px 0 5px 1px;
+}
+
 .test {
   @rtl margin: 10px 5rem 10px 6px;
 }
@@ -177,6 +201,7 @@ describe("transform rtl css", () => {
     const res = transform(content, config);
     expect(res).toContain('html');
     expect(res).toContain('margin: 10px 6px 10px 5rem;');
+    expect(res).toContain('margin: 10px 1px 5px 0');
     expect(res).toContain('padding: 10px 6px 10px 5px;');
     expect(res).toContain('inset: 10px 6px 10px 5px;')
     expect(res).not.toContain('@rtl margin: 10px 5px')
@@ -201,6 +226,10 @@ describe("transform rtl css", () => {
   @rtl right: 13px;
 }
 
+.left1 {
+  @rtl left: 0;
+}
+
 .border {
   @rtl border-left: 12px;
   @rtl border-right: 13px;
@@ -219,6 +248,7 @@ describe("transform rtl css", () => {
     expect(res).toContain('padding-right: 12px !important');
     expect(res).toContain('left: unset');
     expect(res).toContain('right: 12px !important');
+    expect(res).toContain('right: 0 !important');
     expect(res).toContain('border-left: unset');
     expect(res).toContain('border-right: 12px !important');
   })
