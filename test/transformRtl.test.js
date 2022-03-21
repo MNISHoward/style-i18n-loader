@@ -12,6 +12,10 @@ describe("transform rtl scss", () => {
   @rtl margin: 10px 0 5px 1px;
 }
 
+.tes2 {
+  @rtl margin: -10px 0 -5px -1px;
+}
+
 .test {
   @rtl margin: 10px 5rem 10px 6px;
 }
@@ -33,6 +37,7 @@ describe("transform rtl scss", () => {
     expect(res).toContain('@at-root');
     expect(res).toContain('margin: 10px 6px 10px 5rem;');
     expect(res).toContain('margin: 10px 1px 5px 0');
+    expect(res).toContain('margin: -10px -1px -5px 0');
     expect(res).toContain('padding: 10px 6px 10px 5px;');
     expect(res).toContain('inset: 10px 6px 10px 5px;')
     expect(res).not.toContain('@rtl margin: 10px 5px')
@@ -61,6 +66,10 @@ describe("transform rtl scss", () => {
   @rtl left: 0;
 }
 
+.left2 {
+  @rtl left: -1px;
+}
+
 .border {
   @rtl border-left: 12px;
   @rtl border-right: 13px;
@@ -80,6 +89,7 @@ describe("transform rtl scss", () => {
     expect(res).toContain('left: unset');
     expect(res).toContain('right: 12px !important');
     expect(res).toContain('right: 0 !important');
+    expect(res).toContain('right: -1px !important');
     expect(res).toContain('border-left: unset');
     expect(res).toContain('border-right: 12px !important');
   })
