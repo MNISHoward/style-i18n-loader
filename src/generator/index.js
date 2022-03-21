@@ -76,25 +76,33 @@ function generateI18nAst(iden, names, space, langConfig, selector) {
 
 function getDimensions(node) {
   const dimensions = [];
-  node.forEach(n => {
-    if (n.type === 'dimension') {
-      const dimension = {};
-      n.forEach(no => {
-        if (no.type === 'number') {
-          dimension.number = no.content;
-        }
-        if (no.type === 'ident') {
-          dimension.unit = no.content;
-        }
-      })
-      dimensions.push(dimension);
+  node.forEach((n, index) => {
+    if (n.type === 'dimension' || n.type === 'number') {
+      const op = node.get(index - 1);
+      let operator = '';
+      if (op.is('operator') && op.content === '-') {
+        operator = op.content;
+      }
+      if (n.type === 'dimension') {
+        const dimension = {};
+        n.forEach(no => {
+          if (no.type === 'number') {
+            dimension.number = operator + no.content;
+          }
+          if (no.type === 'ident') {
+            dimension.unit = no.content;
+          }
+        })
+        dimensions.push(dimension);
+      }
+      if (n.type === 'number') {
+        dimensions.push({
+          number: operator + n.content,
+          unit: ''
+        })
+      }
     }
-    if (n.type === 'number') {
-      dimensions.push({
-        number: n.content,
-        unit: ''
-      })
-    }
+    
   })
   return dimensions;
 }
