@@ -92,7 +92,13 @@ function transformLang(parseTree, node, index, parent, cbList) {
   const space = getSpace(parent, index);
   let lang = null;
   let block = null;
+  let isLang = true;
   node.forEach(no => {
+    if (no.is('atkeyword')) {
+      if (no.content[0].content !== 'lang') {
+        isLang = false;
+      }
+    }
     if (no.is('parentheses')) {
       lang = no.content[0].content;
     }
@@ -100,7 +106,7 @@ function transformLang(parseTree, node, index, parent, cbList) {
       block = no;
     }
   })
-  if (lang == null || block == null) return;
+  if (lang == null || block == null || !isLang) return;
   const cb = () => {
     removeCustomRule(parent, node);
     const [selector, pselector] = getSelector(parseTree, parent);
@@ -118,6 +124,9 @@ function transform(content, config) {
       transfromI18n(parseTree, config.paths, node, index, parent, cbList);
     }
     if (containsValue(node, 'rtl')) {
+      if (config.rtl == null) {
+        throw new Error('Please designate rtl property in configuration');
+      }
       transformRtl(parseTree, config.rtl, node, index, parent, cbList);
     }
     if (containsValue(node, 'lang')) {
