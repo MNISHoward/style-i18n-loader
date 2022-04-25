@@ -4,6 +4,12 @@ import transform from "../src/transform";
 describe("transform rtl scss", () => {
   test("generate collection successful", () => {
     const content = `
+@media (max-width: 575px) {
+  .test {
+    @rtl margin: -10px 0 -5px -1%;
+  }
+}
+
 .tes {
   margin: 10px 2px 5px 1px;
 }
@@ -14,6 +20,10 @@ describe("transform rtl scss", () => {
 
 .tes2 {
   @rtl margin: -10px 0 -5px -1px;
+}
+
+.tes3 {
+  @rtl margin: -10px 0 -5px -1%;
 }
 
 .test {
@@ -34,6 +44,7 @@ describe("transform rtl scss", () => {
 `
     global.i18nSyntax = 'scss';
     const res = transform(content, config);
+    console.log(res)
     expect(res).toContain('@at-root');
     expect(res).toContain('margin: 10px 6px 10px 5rem;');
     expect(res).toContain('margin: 10px 1px 5px 0');
@@ -68,6 +79,10 @@ describe("transform rtl scss", () => {
 
 .left2 {
   @rtl left: -1px;
+}
+
+.left3 {
+  @rtl left: 10%;
 }
 
 .border {

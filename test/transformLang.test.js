@@ -10,6 +10,15 @@ describe("transform lang scss", () => {
     color: blue;
   }
 }
+
+@media (max-width: 575px) {
+  .test {
+    @lang(ar) {
+      font-size:12px
+    }
+  }
+}
+
 `
     global.i18nSyntax = 'scss';
     const res = transform(content, config);

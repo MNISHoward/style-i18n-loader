@@ -73,11 +73,12 @@ function generateI18nAst(iden, names, space, langConfig, selector) {
   return parseContent(content);
 }
 
+const dimensionTypes = ['dimension', 'number', 'percentage'];
 
 function getDimensions(node) {
   const dimensions = [];
   node.forEach((n, index) => {
-    if (n.type === 'dimension' || n.type === 'number') {
+    if (dimensionTypes.includes(n.type)) {
       const op = node.get(index - 1);
       let operator = '';
       if (op.is('operator') && op.content === '-') {
@@ -101,8 +102,18 @@ function getDimensions(node) {
           unit: ''
         })
       }
+      if (n.type === 'percentage') {
+        const dimension = {};
+        n.forEach(no => {
+          if (no.type === 'number') {
+            dimension.number = operator + no.content;
+          }
+          dimension.unit = '%'
+        })
+        dimensions.push(dimension)
+      }
     }
-    
+
   })
   return dimensions;
 }
