@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/MNISHoward/style-i18n-loader/compare/v1.4.1...v1.4.2) (2022-04-25)
+
+
+### Bug Fixes
+
+* fix percentage and media ([3ca47ca](https://github.com/MNISHoward/style-i18n-loader/commit/3ca47cae0cb3604ed50c6f4d2f7e18df40d47d0a))
+
 ### [1.4.1](https://github.com/MNISHoward/style-i18n-loader/compare/v1.4.0...v1.4.1) (2022-03-21)
 
 
